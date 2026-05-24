@@ -1,0 +1,126 @@
+# ==============================
+# 📊 EDA PROJECT - SUPERSTORE SALES DATA
+# ==============================
+
+# 📌 1. Import Libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# ==============================
+# 📌 2. Load Dataset
+# ==============================
+df = pd.read_csv("Superstore_sample.csv", encoding="latin1")
+
+# ==============================
+# 📌 3. Basic Exploration
+# ==============================
+print("\nFirst 5 rows:")
+print(df.head())
+
+print("\nShape of dataset:")
+print(df.shape)
+
+print("\nDataset Info:")
+print(df.info())
+
+print("\nStatistical Summary:")
+print(df.describe())
+
+# ==============================
+# 📌 4. Missing Values Check
+# ==============================
+print("\nMissing Values:")
+print(df.isnull().sum())
+
+plt.figure(figsize=(12,6))
+sns.heatmap(df.isnull(), cbar=False)
+plt.title("Missing Values check using Heatmap")
+plt.tight_layout()
+plt.show()
+
+# ==============================
+# 📌 5. Sales & Profit Distribution
+# ==============================
+plt.figure()
+sns.histplot(df['Sales'], bins=50, kde=True)
+plt.title("Sales Distribution")
+plt.show()
+
+plt.figure()
+sns.histplot(df['Profit'], bins=50, kde=True)
+plt.title("Profit Distribution")
+plt.show()
+
+# ==============================
+# 📌 6. Category Analysis
+# ==============================
+plt.figure()
+sns.barplot(x='Category', y='Sales', data=df)
+plt.title("Category vs Sales")
+plt.xlabel("category")
+plt.ylabel("sales")
+plt.show()
+
+plt.figure()
+sns.barplot(x='Category', y='Profit', data=df)
+plt.title("Category vs Profit")
+plt.xlabel("category")
+plt.ylabel("profit")
+plt.show()
+
+# ==============================
+# 📌 7. Region Analysis
+# ==============================
+plt.figure()
+sns.barplot(x='Region', y='Sales', data=df)
+plt.title("Region vs Sales")
+plt.xlabel("region")
+plt.ylabel("sales")
+plt.show()
+
+plt.figure()
+sns.barplot(x='Region', y='Profit', data=df)
+plt.title("Region vs Profit")
+plt.xlabel("Region")
+plt.ylabel("profit")
+plt.show()
+
+# ==============================
+# 📌 8. Discount Impact
+# ==============================
+plt.figure()
+sns.scatterplot(x='Discount', y='Profit', data=df)
+plt.title("Discount vs Profit")
+plt.xlabel("Discount")
+plt.ylabel("Profit")
+plt.show()
+
+# ==============================
+# 📌 9. Sub-Category Analysis
+# ==============================
+plt.figure(figsize=(12,6))
+sns.barplot(x='Sub-Category', y='Sales', data=df)
+plt.xticks(rotation=90)
+plt.title("Sub-Category vs Sales")
+plt.tight_layout()
+plt.show()
+
+# ==============================
+# 📌 10. Correlation Matrix
+# ==============================
+plt.figure()
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="coolwarm")
+plt.title("Correlation Matrix")
+plt.show()
+
+# ==============================
+# 📌 11. Final Insights (Print)
+# ==============================
+print("\n===== FINAL INSIGHTS =====")
+print("1. Technology category generally performs better in profit.")
+print("2. Furniture category has lower profit margins.")
+print("3. High discounts reduce profit.")
+print("4. Sales vary across regions.")
+print("5. Some sub-categories dominate overall sales.")
